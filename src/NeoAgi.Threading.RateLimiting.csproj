@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>NeoAgi.Threading.RateLimiting</AssemblyName>
+    <OutputType>Library</OutputType>
+		<TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+		<PackageProjectUrl>https://github.com/NeoAgi/NeoAgi.Threading.RateLimiting</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/NeoAgi/NeoAgi.Threading.RateLimiting</RepositoryUrl>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Copyright>2021 NeoAgi, LLC</Copyright>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Company>NeoAgi, LLC</Company>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Authors>NeoAgi</Authors>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description></Description>
+		<AssemblyVersion>1.0</AssemblyVersion>
+		<Version>1.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include=".\README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+</Project>

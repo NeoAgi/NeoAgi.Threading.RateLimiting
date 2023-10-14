@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeoAgi.Threading.RateLimiting", "src\NeoAgi.Threading.RateLimiting.csproj", "{00D5E3BF-0D81-4EB4-A490-4A095139570A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeoAgi.Threading.RateLimiting.Test", "test\NeoAgi.Threading.RateLimiting.Test.csproj", "{543F1D9E-F45D-477C-81EE-B3ACD63A9405}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00D5E3BF-0D81-4EB4-A490-4A095139570A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00D5E3BF-0D81-4EB4-A490-4A095139570A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00D5E3BF-0D81-4EB4-A490-4A095139570A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00D5E3BF-0D81-4EB4-A490-4A095139570A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{543F1D9E-F45D-477C-81EE-B3ACD63A9405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543F1D9E-F45D-477C-81EE-B3ACD63A9405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543F1D9E-F45D-477C-81EE-B3ACD63A9405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543F1D9E-F45D-477C-81EE-B3ACD63A9405}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

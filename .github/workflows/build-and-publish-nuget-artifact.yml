@@ -1,0 +1,23 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build and Publish NeoAgi.Threading.RateLimiting Artifact
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push of a new tag
+  push:
+    tags: [ 'v*' ] 
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build-and-publish-nuget-package:
+    name: Build and Publish NeoAgi.Threading.RateLimiting
+    uses: neoagi/neoagi-gha-workflows/.github/workflows/build-and-publish-nuget-artifact.yml@v1
+    with: 
+      dotnet-sdk-version: '7.0.*'
+    secrets: 
+      neoagi-code-artifact-key-id: ${{ secrets.NEOAGI_CODE_ARTIFACT_CI_KEY_ID }}
+      neoagi-code-artifact-access-key: ${{ secrets.NEOAGI_CODE_ARTIFACT_CI_ACCESS_KEY }}
+      slack-deploy-webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+      nuget-feed-source: ${{ secrets.NEOAGI_PRIVATE_NUGET_SOURCE }}
