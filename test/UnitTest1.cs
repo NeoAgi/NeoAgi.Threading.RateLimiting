@@ -1,4 +1,7 @@
-namespace NeoAgi.Threading.RateLimiting.Test;
+﻿namespace NeoAgi.Threading.RateLimiting.Test;
+
+using System.Collections.Concurrent;
+using NeoAgi.Threading.RateLimiting;
 
 public class Tests
 {
@@ -8,8 +11,16 @@ public class Tests
     }
 
     [Test]
-    public void Test1()
+    public async Task TestTokenBucketAsync()
     {
+        ConcurrentQueue<string> queue = new ConcurrentQueue<string>();
+        for (int i = 0; i < 100; i++)
+        {
+            queue.Enqueue("Iteration: " + i);
+        }
+
+        await queue.EnumerateWithRateLimitAsync();
+
         Assert.Pass();
     }
 }
