@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>NeoAgi.Threading.RateLimiting</AssemblyName>
@@ -16,9 +16,9 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<Authors>NeoAgi</Authors>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Description></Description>
+		<Description>Thin Abstractions to simplify use of System.Threading.RateLimiting</Description>
 		<AssemblyVersion>1.0</AssemblyVersion>
-		<Version>1.0</Version>
+		<Version>0.0.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
