@@ -21,7 +21,7 @@ public class Tests
             queue.Enqueue("Iteration: " + i);
         }
 
-        await queue.EnumerateWithRateLimitAsync(async (str) =>
+        await queue.ProcessWithRateLimitAsync(async (str) =>
         {
             await PrintStringWithRandomDelay(str);
         });
@@ -33,5 +33,7 @@ public class Tests
     {
         int delayAmount = random.Next(200, 3000);
         Console.WriteLine($"Received {str} from delegate.  Waited {delayAmount}ms.");
+
+        await Task.CompletedTask;
     }
 }
