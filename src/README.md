@@ -8,7 +8,7 @@ This library does not intend to replace the System.Threading.RateLimiting Namesp
 
 ## ConcurrentQueue<T>
 
-Processing a ConcurrentQueue will continue until the cancellation token is cancelled allowing for work to be added to the queue at any time and worked.
+Processing a ConcurrentQueue will continue until the cancellation token is cancelled or the queue is empty allowing for work to add more work which will be completed.
 
 ### ProcessWithTPSAsync()
 

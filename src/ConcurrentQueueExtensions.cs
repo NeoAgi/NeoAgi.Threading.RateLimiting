@@ -16,15 +16,17 @@ namespace NeoAgi.Threading.RateLimiting
         /// <param name="tps">Transactions Per Second Limit</param>
         /// <param name="concurrency">Maximum number of resources to process at once.  Set this higher for longer running tasks to reach TPS set.</param>
         /// <param name="dequeueFunc"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public static async Task ProcessWithTPSAsync<T>(this ConcurrentQueue<T> queue, int tps, int concurrency, Func<T, Task> dequeueFunc)
+        public static async Task ProcessWithTPSAsync<T>(this ConcurrentQueue<T> queue, int tps, int concurrency, Func<T, Task> dequeueFunc, CancellationToken cancellationToken)
         {
             await queue.ProcessWithRateLimitAsync<T>(new ThroughputConcurrencyOptions()
             {
                 ConcurrencyLimit = concurrency,
                 ReplinshmentPeriod = TimeSpan.FromMilliseconds(250),
                 TasksPerPeriod = tps / 4
-            }, dequeueFunc);
+            }, dequeueFunc
+            , cancellationToken);
         }
 
         /// <summary>
@@ -33,10 +35,11 @@ namespace NeoAgi.Threading.RateLimiting
         /// <typeparam name="T"></typeparam>
         /// <param name="queue"></param>
         /// <param name="dequeueFunc"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public static async Task ProcessWithRateLimitAsync<T>(this ConcurrentQueue<T> queue, Func<T, Task> dequeueFunc)
+        public static async Task ProcessWithRateLimitAsync<T>(this ConcurrentQueue<T> queue, Func<T, Task> dequeueFunc, CancellationToken cancellationToken)
         {
-            await queue.ProcessWithRateLimitAsync(new ThroughputConcurrencyOptions(), dequeueFunc);
+            await queue.ProcessWithRateLimitAsync(new ThroughputConcurrencyOptions(), dequeueFunc, cancellationToken);
         }
 
         /// <summary>
@@ -46,25 +49,23 @@ namespace NeoAgi.Threading.RateLimiting
         /// <param name="queue"></param>
         /// <param name="options"></param>
         /// <param name="dequeueFunc"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public static async Task ProcessWithRateLimitAsync<T>(this ConcurrentQueue<T> queue, ThroughputConcurrencyOptions options, Func<T, Task> dequeueFunc)
+        public static async Task ProcessWithRateLimitAsync<T>(this ConcurrentQueue<T> queue, ThroughputConcurrencyOptions options, Func<T, Task> dequeueFunc, CancellationToken cancellationToken)
         {
             using (RateLimiter limiter = new TokenBucketRateLimiter(options.GetTokenBucketOptions()))
             {
-                while (true)
+                while (!queue.IsEmpty)
                 {
-                    while (!queue.IsEmpty)
+                    using RateLimitLease lease = await limiter.AcquireAsync();
+                    if (lease.IsAcquired)
                     {
-                        using RateLimitLease lease = await limiter.AcquireAsync();
-                        if (lease.IsAcquired)
-                        {
-                            if (queue.TryDequeue(out var s))
-                                _ = dequeueFunc.Invoke(s);
-                        }
+                        if (queue.TryDequeue(out var s))
+                            _ = dequeueFunc.Invoke(s);
                     }
 
-                    Task.Delay(1500).Wait();
-                    Console.WriteLine("Queue is empty... waiting for work");
+                    if (cancellationToken.IsCancellationRequested)
+                        break;
                 }
             }
         }
