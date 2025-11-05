@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>NeoAgi.Threading.RateLimiting</AssemblyName>
     <OutputType>Library</OutputType>
-		<TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
 		<PackageProjectUrl>https://github.com/NeoAgi/NeoAgi.Threading.RateLimiting</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/NeoAgi/NeoAgi.Threading.RateLimiting</RepositoryUrl>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -26,7 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="System.Threading.RateLimiting" Version="7.0.1" />
+	  <PackageReference Include="System.Threading.RateLimiting" Version="9.0.10" />
 	</ItemGroup>
 
 </Project>
