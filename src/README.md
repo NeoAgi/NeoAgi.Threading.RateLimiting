@@ -1,8 +1,6 @@
 # Overview
 
-Simple Abstractions over the [System.Threading.RateLimiting](https://learn.microsoft.com/en-us/dotnet/api/system.threading.ratelimiting) namespace with the goal of simplifying the API for callers.
-
-This library does not intend to replace the System.Threading.RateLimiting Namespace.  Simply make working with some aspects of it easier under some contexts.  
+This library does not intend to replace the [System.Threading.RateLimiting](https://learn.microsoft.com/en-us/dotnet/api/system.threading.ratelimiting) Namespace.  Simply make working with some aspects of it easier under some contexts.  
 
 # Extension Methods
 
@@ -23,13 +21,14 @@ Example Call:
 ```csharp
 var stringQueue = new ConcurrentQueue<string>();
 // Fill the queue
-await stringQueue.ProcessWithTPSAsync(maxTransactionsPerSecond, concurrentResourceCount, async (action) =>
+await stringQueue.ProcessWithTPSAsync(100, 10, async (action) =>
 {
     // Perform work once TPS falls below the threshold
 });
 ```
 
-Note: This extension limits processing of the queue to a single thread, fanning out processing to sub-threads.
+The above configuration will execute 10 concurrent tasks executing no more than 100 per second.  
+
 
 ### ProcessWithRateLimitAsync()
 
@@ -52,3 +51,5 @@ await stringQueue.ProcessWithRateLimitAsync(new ThroughputConcurrencyOptions()
     // Do work
 });
 ```
+
+The above configuration will pop tasks off of the queue keeping 20 active at a time, blocking once 50 tasks have been completed within a 10 second period.

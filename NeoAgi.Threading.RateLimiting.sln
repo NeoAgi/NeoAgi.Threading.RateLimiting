@@ -7,11 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeoAgi.Threading.RateLimiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeoAgi.Threading.RateLimiting.Test", "test\NeoAgi.Threading.RateLimiting.Test.csproj", "{543F1D9E-F45D-477C-81EE-B3ACD63A9405}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{356565DC-404F-4872-85F9-780E2A9DBD50}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Repository Files", "{386B237E-6E50-40B0-B296-4B67F531810E}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{B9CE90D4-9869-4FC6-ADEB-D1012C6A3D98}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{1195C4EB-E911-43D2-B48B-0AE6234DD626}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub Workflows", "GitHub Workflows", "{CBB60D7C-26C6-433A-854C-16B9BF973BA1}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\build-and-publish-nuget-artifact.yml = .github\workflows\build-and-publish-nuget-artifact.yml
 	EndProjectSection
@@ -34,8 +39,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{B9CE90D4-9869-4FC6-ADEB-D1012C6A3D98} = {356565DC-404F-4872-85F9-780E2A9DBD50}
-		{1195C4EB-E911-43D2-B48B-0AE6234DD626} = {B9CE90D4-9869-4FC6-ADEB-D1012C6A3D98}
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E749027B-E7EB-4E4C-B8D8-447C21C54ED4}
 	EndGlobalSection
 EndGlobal
