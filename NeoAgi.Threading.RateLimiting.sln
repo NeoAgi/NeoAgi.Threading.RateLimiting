@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Reposit
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub Workflows", "GitHub Workflows", "{CBB60D7C-26C6-433A-854C-16B9BF973BA1}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build-and-publish-nuget-artifact.yml = .github\workflows\build-and-publish-nuget-artifact.yml
+		.github\workflows\publish-tag-to-nuget.yml = .github\workflows\publish-tag-to-nuget.yml
 	EndProjectSection
 EndProject
 Global
