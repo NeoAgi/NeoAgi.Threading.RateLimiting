@@ -1,0 +1,64 @@
+﻿name: Build and Publish NeoAgi.CommandLine Package
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push of a new tag
+  push:
+    tags: [ 'v*' ]
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build-and-publish:
+    # Request a Write Scoped OICD Token for this run  
+    permissions:
+        id-token: write
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    env:
+          DOTNET_NOLOGO: true
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+        # Capture some variables for easier reference later
+      - name: Init Workflow Variables
+        run: |
+            echo "TAG_NAME=$(echo ${{ github.ref_name }} | sed s/v// )" >> $GITHUB_ENV
+            echo "SHORT_HASH=$(echo ${{ github.sha }} | cut -c 1-8 )" >> $GITHUB_ENV
+      
+      # Get a short-lived NuGet API key
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: ${{ secrets.NEOAGI_NUGET_ORG_USERNAME }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      # Add the 9.0 SDK to build our target platform
+      - name: Setup .NET 9.0
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '9.0.*'
+
+      - name: Build Code
+        run: | 
+          dotnet build -c Release src/*.csproj /p:Version=${{ env.TAG_NAME }} /p:PackageVersion=${{ env.TAG_NAME }}
+
+      - name: Run Tests
+        run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Threshold=40 /p:ThresholdStat=total --collect:"XPlat Code Coverage" /p:Version=${{ env.TAG_NAME }} /p:PackageVersion=${{ env.TAG_NAME }}
+
+      - name: Pack Projects
+        run: | 
+          dotnet pack -c Release --include-source src/*.csproj -o out/ /p:Version=${{ env.TAG_NAME }} /p:PackageVersion=${{ env.TAG_NAME }}
+      
+      - name: Push NeoAgi.Threading.RateLimiting Package
+        if: always() 
+        run: | 
+          rm out/*.symbols.nupkg
+          dotnet nuget push out/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
